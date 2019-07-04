@@ -182,10 +182,11 @@ class dirBase extends folderFile
 		$arrayInfo['path'] = $this->path;
 		$arrayInfo['size'] = $this->size;
 		$arrayInfo['perms'] = $this->perms;
-		if(!is_null($this->arrayFile)){
+
+		if(!empty($this->arrayFile)){
 			$arrayInfo['arrayFile'] = $this->arrayFile;
 		}
-		if(!is_null($this->arrayFolder)){
+		if(!empty($this->arrayFolder)){
 			$arrayInfo['arrayFolder'] = $this->arrayFolder;
 		}
 		return $arrayInfo;

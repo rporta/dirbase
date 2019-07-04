@@ -208,7 +208,7 @@ class folderFile
 		$fileContent = "";
 		$fp = fopen($file,'r');
 		while (!feof($fp)) {
-		    $fileContent .= fgets($fp);
+			$fileContent .= fgets($fp);
 		}
 		return $fileContent;
 	}
@@ -232,7 +232,7 @@ class folderFile
 	protected function __getObj($arg){
 		$argSearch = explode("/", $arg);
 		if (empty(end($argSearch))){
-				unset($argSearch[end(array_keys($argSearch))]);
+			unset($argSearch[end(array_keys($argSearch))]);
 		}
 		if(count($argSearch) > 1){
 			for ($i=0; $i < count($argSearch); $i++) { 
@@ -247,6 +247,7 @@ class folderFile
 			return $obj_act;
 		}
 		else{
+
 			return $this->__searchObj($argSearch[0]);
 		}
 	}
@@ -254,8 +255,10 @@ class folderFile
 	protected function __searchObj($arg){
 		foreach ($this->arrayObj as $key => $obj) {
 			$search = (explode("/", $obj->__getProperty('path')));
-			if (end($search) == $arg){
-				return $this->arrayObj[$key];
+			foreach ($search as $k => $v) {
+				if ($v == $arg){
+					return $this->arrayObj[$key];
+				}
 			}
 		}		
 	}

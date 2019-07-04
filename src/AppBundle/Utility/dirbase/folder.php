@@ -38,10 +38,13 @@ class folder extends folderFile
 		$this->path = $this->__filterPath($arg, 'is_dir');
 		$this->perms = $this->__getPermsObj($this->path);
 		$arrayPath = $this->__getDirR($this->path);
-		$filesR = $arrayPath['file'];
-		unset($arrayPath);
-		$this->size = $this->__getSizeObj($filesR, 'is_dir');
-		unset($files);
+		if(!empty($arrayPath)){
+			$filesR = $arrayPath['file'];
+			unset($arrayPath);
+			$this->size = $this->__getSizeObj($filesR, 'is_dir');
+		}else{
+			$this->size = NULL;
+		}
 		$arrayPathL = $this->__getDir($this->path);
 		if(!empty($arrayPathL['dir'])){
 			foreach($arrayPathL['dir'] as $key => $path) {
@@ -178,7 +181,7 @@ class folder extends folderFile
 	/**
 	/**
 	 * [getInfo description] Refresca la informacion y trae la informacion del modelo.
-	 * @return array [description] - Retorna las propiedades (path,size,perms,arrayFile,arrayFolder)
+	 // * @return array [description] - Retorna las propiedades (path,size,perms,arrayFile,arrayFolder)
 	 */
 	public function getInfo(){
 		$this->refreshInfo();
@@ -186,10 +189,11 @@ class folder extends folderFile
 		$arrayInfo['path'] = $this->path;
 		$arrayInfo['size'] = $this->size;
 		$arrayInfo['perms'] = $this->perms;
-		if(!is_null($this->arrayFile)){
+
+		if(!empty($this->arrayFile)){
 			$arrayInfo['arrayFile'] = $this->arrayFile;
 		}
-		if(!is_null($this->arrayFolder)){
+		if(!empty($this->arrayFolder)){
 			$arrayInfo['arrayFolder'] = $this->arrayFolder;
 		}
 		return $arrayInfo;
